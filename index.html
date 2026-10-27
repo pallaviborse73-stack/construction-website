@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BuildRight Construction | Quality Construction Services</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #e67e22;
+      --primary-dark: #d35400;
+      --dark: #1a1a2e;
+      --dark-2: #16213e;
+      --light: #f8f9fa;
+      --gray: #6c757d;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; overflow-x: hidden; color: #333; }
+
+    .navbar { background: rgba(26, 26, 46, 0.95) !important; backdrop-filter: blur(10px); padding: 0.8rem 0; transition: all 0.3s ease; }
+    .navbar.scrolled { padding: 0.5rem 0; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+    .navbar-brand { font-weight: 800; font-size: 1.6rem; color: #fff !important; letter-spacing: -0.5px; }
+    .navbar-brand span { color: var(--primary); }
+    .navbar-brand i { color: var(--primary); margin-right: 6px; }
+    .nav-link { color: rgba(255,255,255,0.85) !important; font-weight: 500; font-size: 0.95rem; margin: 0 0.4rem; transition: color 0.3s; position: relative; }
+    .nav-link:hover, .nav-link.active { color: var(--primary) !important; }
+    .nav-link::after { content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 2px; background: var(--primary); transition: all 0.3s; transform: translateX(-50%); }
+    .nav-link:hover::after, .nav-link.active::after { width: 60%; }
+    .btn-quote { background: var(--primary); color: #fff !important; border: none; padding: 0.5rem 1.4rem; border-radius: 50px; font-weight: 600; font-size: 0.9rem; transition: all 0.3s; }
+    .btn-quote:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(230, 126, 34, 0.4); }
+
+    .hero { min-height: 100vh; background: linear-gradient(135deg, rgba(26,26,46,0.92) 0%, rgba(22,33,62,0.85) 100%), url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1600&q=80') center/cover no-repeat; display: flex; align-items: center; position: relative; color: #fff; }
+    .hero-content h1 { font-size: 3.4rem; font-weight: 800; line-height: 1.2; margin-bottom: 1.2rem; }
+    .hero-content h1 span { color: var(--primary); }
+    .hero-content p { font-size: 1.15rem; opacity: 0.9; max-width: 520px; margin-bottom: 2rem; font-weight: 300; }
+    .btn-primary-custom { background: var(--primary); color: #fff; border: none; padding: 0.85rem 2rem; border-radius: 50px; font-weight: 600; font-size: 1rem; transition: all 0.3s; text-decoration: none; display: inline-block; }
+    .btn-primary-custom:hover { background: var(--primary-dark); color: #fff; transform: translateY(-3px); box-shadow: 0 10px 30px rgba(230, 126, 34, 0.4); }
+    .btn-outline-custom { border: 2px solid #fff; color: #fff; padding: 0.8rem 2rem; border-radius: 50px; font-weight: 600; font-size: 1rem; transition: all 0.3s; text-decoration: none; display: inline-block; margin-left: 0.8rem; }
+    .btn-outline-custom:hover { background: #fff; color: var(--dark); }
+    .hero-stats { display: flex; gap: 2.5rem; margin-top: 3.5rem; flex-wrap: wrap; }
+    .stat-item h3 { font-size: 2.2rem; font-weight: 700; color: var(--primary); margin-bottom: 0.2rem; }
+    .stat-item p { font-size: 0.9rem; opacity: 0.8; margin: 0; }
+
+    section { padding: 5rem 0; }
+    .section-title { text-align: center; margin-bottom: 3.5rem; }
+    .section-title h2 { font-size: 2.4rem; font-weight: 700; color: var(--dark); margin-bottom: 0.8rem; }
+    .section-title h2 span { color: var(--primary); }
+    .section-title p { color: var(--gray); max-width: 550px; margin: 0 auto; font-size: 1.05rem; }
+    .section-title .line { width: 60px; height: 4px; background: var(--primary); margin: 1rem auto 0; border-radius: 2px; }
+
+    .service-card { background: #fff; border-radius: 16px; padding: 2.2rem 1.8rem; text-align: center; box-shadow: 0 8px 30px rgba(0,0,0,0.06); transition: all 0.4s ease; height: 100%; border: 1px solid #f0f0f0; }
+    .service-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-color: transparent; }
+    .service-icon { width: 75px; height: 75px; background: linear-gradient(135deg, var(--primary), #f39c12); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 1.8rem; color: #fff; transition: all 0.3s; }
+    .service-card:hover .service-icon { transform: scale(1.1) rotate(5deg); }
+    .service-card h4 { font-weight: 600; font-size: 1.25rem; margin-bottom: 0.8rem; color: var(--dark); }
+    .service-card p { color: var(--gray); font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+    .about { background: linear-gradient(180deg, #f8f9fa 0%, #fff 100%); }
+    .about-img { border-radius: 16px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.12); position: relative; }
+    .about-img img { width: 100%; height: 100%; object-fit: cover; min-height: 420px; }
+    .about-badge { position: absolute; bottom: 20px; left: 20px; background: var(--primary); color: #fff; padding: 1rem 1.5rem; border-radius: 12px; font-weight: 600; }
+    .about-badge span { display: block; font-size: 2rem; font-weight: 800; line-height: 1; }
+    .about-content h3 { font-size: 1.9rem; font-weight: 700; color: var(--dark); margin-bottom: 1.2rem; }
+    .about-content p { color: var(--gray); line-height: 1.8; margin-bottom: 1.2rem; }
+    .about-features { list-style: none; padding: 0; margin: 1.5rem 0; }
+    .about-features li { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem; font-weight: 500; color: #333; }
+    .about-features li i { color: var(--primary); font-size: 1.2rem; }
+
+    .projects { background: var(--dark); color: #fff; }
+    .projects .section-title h2 { color: #fff; }
+    .projects .section-title p { color: rgba(255,255,255,0.7); }
+    .project-card { position: relative; border-radius: 14px; overflow: hidden; height: 320px; cursor: pointer; }
+    .project-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .project-card:hover img { transform: scale(1.1); }
+    .project-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,26,46,0.95) 0%, transparent 60%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; opacity: 0; transition: opacity 0.4s; }
+    .project-card:hover .project-overlay { opacity: 1; }
+    .project-overlay h5 { font-weight: 600; margin-bottom: 0.3rem; }
+    .project-overlay p { font-size: 0.9rem; opacity: 0.85; margin: 0; }
+    .project-tag { position: absolute; top: 15px; left: 15px; background: var(--primary); color: #fff; padding: 0.3rem 0.9rem; border-radius: 50px; font-size: 0.8rem; font-weight: 600; }
+
+    .why-card { text-align: center; padding: 1.5rem; }
+    .why-icon { width: 70px; height: 70px; background: rgba(230, 126, 34, 0.12); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; font-size: 1.7rem; color: var(--primary); }
+    .why-card h5 { font-weight: 600; margin-bottom: 0.6rem; color: var(--dark); }
+    .why-card p { color: var(--gray); font-size: 0.95rem; margin: 0; }
+
+    .testimonials { background: linear-gradient(180deg, #f8f9fa 0%, #fff 100%); }
+    .testimonial-card { background: #fff; border-radius: 16px; padding: 2rem; box-shadow: 0 8px 30px rgba(0,0,0,0.06); height: 100%; border: 1px solid #f0f0f0; }
+    .testimonial-card .stars { color: #f1c40f; margin-bottom: 1rem; font-size: 1.1rem; }
+    .testimonial-card p { color: var(--gray); font-style: italic; line-height: 1.7; margin-bottom: 1.5rem; }
+    .testimonial-author { display: flex; align-items: center; gap: 1rem; }
+    .testimonial-author img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
+    .testimonial-author h6 { margin: 0; font-weight: 600; color: var(--dark); }
+    .testimonial-author small { color: var(--gray); }
+
+    .contact { background: var(--dark); color: #fff; }
+    .contact .section-title h2 { color: #fff; }
+    .contact .section-title p { color: rgba(255,255,255,0.7); }
+    .contact-info-item { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.8rem; }
+    .contact-info-item .icon { width: 50px; height: 50px; background: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+    .contact-info-item h6 { font-weight: 600; margin-bottom: 0.3rem; }
+    .contact-info-item p { margin: 0; opacity: 0.8; font-size: 0.95rem; }
+    .contact-form { background: rgba(255,255,255,0.05); border-radius: 16px; padding: 2rem; border: 1px solid rgba(255,255,255,0.1); }
+    .contact-form .form-control, .contact-form .form-select { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff; border-radius: 10px; padding: 0.75rem 1rem; }
+    .contact-form .form-control::placeholder { color: rgba(255,255,255,0.5); }
+    .contact-form .form-control:focus, .contact-form .form-select:focus { background: rgba(255,255,255,0.12); border-color: var(--primary); box-shadow: 0 0 0 0.2rem rgba(230, 126, 34, 0.25); color: #fff; }
+    .contact-form .form-select option { background: var(--dark); color: #fff; }
+    .contact-form label { color: rgba(255,255,255,0.85); font-weight: 500; margin-bottom: 0.4rem; font-size: 0.9rem; }
+
+    footer { background: #0f0f1a; color: rgba(255,255,255,0.7); padding: 3.5rem 0 1.5rem; }
+    footer h5 { color: #fff; font-weight: 600; margin-bottom: 1.2rem; }
+    footer p { font-size: 0.95rem; line-height: 1.7; }
+    footer a { color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.3s; }
+    footer a:hover { color: var(--primary); }
+    footer ul { list-style: none; padding: 0; }
+    footer ul li { margin-bottom: 0.6rem; }
+    .social-links a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: rgba(255,255,255,0.08); border-radius: 50%; margin-right: 0.5rem; font-size: 1.1rem; transition: all 0.3s; }
+    .social-links a:hover { background: var(--primary); color: #fff; transform: translateY(-3px); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); margin-top: 2.5rem; padding-top: 1.5rem; text-align: center; font-size: 0.9rem; }
+
+    #backToTop { position: fixed; bottom: 30px; right: 30px; width: 48px; height: 48px; background: var(--primary); color: #fff; border: none; border-radius: 50%; font-size: 1.3rem; display: none; align-items: center; justify-content: center; cursor: pointer; z-index: 999; box-shadow: 0 6px 20px rgba(230, 126, 34, 0.4); transition: all 0.3s; }
+    #backToTop:hover { background: var(--primary-dark); transform: translateY(-3px); }
+
+    .fade-up { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 991px) {
+      .hero-content h1 { font-size: 2.6rem; }
+      .btn-outline-custom { margin-left: 0; margin-top: 0.8rem; display: block; text-align: center; width: fit-content; }
+      .hero-stats { gap: 1.5rem; }
+    }
+    @media (max-width: 576px) {
+      .hero-content h1 { font-size: 2.1rem; }
+      section { padding: 3.5rem 0; }
+      .section-title h2 { font-size: 1.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="#home"><i class="bi bi-building"></i> Build<span>Right</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#testimonials">Reviews</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item ms-lg-2"><a class="btn btn-quote" href="#contact">Get a Quote</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-7">
+          <div class="hero-content">
+            <h1>Building Your <span>Dreams</span> Into Reality</h1>
+            <p>We deliver high-quality residential, commercial, and industrial construction with precision, safety, and on-time completion. Trusted by hundreds of clients across the region.</p>
+            <div>
+              <a href="#contact" class="btn-primary-custom">Get Free Quote</a>
+              <a href="#projects" class="btn-outline-custom">View Projects</a>
+            </div>
+            <div class="hero-stats">
+              <div class="stat-item"><h3>250+</h3><p>Projects Done</p></div>
+              <div class="stat-item"><h3>18+</h3><p>Years Experience</p></div>
+              <div class="stat-item"><h3>120+</h3><p>Happy Clients</p></div>
+              <div class="stat-item"><h3>45+</h3><p>Expert Workers</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-title fade-up">
+        <h2>Our <span>Services</span></h2>
+        <p>From planning to handover, we offer end-to-end construction solutions tailored to your needs.</p>
+        <div class="line"></div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4 fade-up">
+          <div class="service-card">
+            <div class="service-icon"><i class="bi bi-house-door"></i></div>
+            <h4>Residential Construction</h4>
+            <p>Custom homes, villas, and apartments built with quality materials and modern designs for comfortable living.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 fade-up">
+          <div class="service-card">
+            <div class="service-icon"><i class="bi bi-building"></i></div>
+            <h4>Commercial Buildings</h4>
+            <p>Offices, retail spaces, and commercial complexes designed for functionality, aesthetics, and durability.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 fade-up">
+          <div class="service-card">
+            <div class="service-icon"><i class="bi bi-tools"></i></div>
+            <h4>Renovation & Remodeling</h4>
+            <p>Transform existing spaces with expert renovation, interior upgrades, and structural improvements.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 fade-up">
+          <div class="service-card">
+            <div class="service-icon"><i class="bi bi-geo-alt"></i></div>
+            <h4>Site Planning & Design</h4>
+            <p>Complete architectural planning, 3D visualization, and structural design for your construction project.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 fade-up">
+          <div class="service-card">
+            <div class="service-icon"><i class="bi bi-truck"></i></div>
+            <h4>Material Supply</h4>
+            <p>Premium construction materials delivered on time — cement, steel, bricks, tiles, and more.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 fade-up">
+          <div class="service-card">
+            <div class="service-icon"><i class="bi bi-shield-check"></i></div>
+            <h4>Project Management</h4>
+            <p>End-to-end project supervision ensuring quality, safety compliance, and timely delivery.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6 fade-up">
+          <div class="about-img">
+            <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&q=80" alt="Construction site">
+            <div class="about-badge"><span>18+</span>Years of Excellence</div>
+          </div>
+        </div>
+        <div class="col-lg-6 fade-up">
+          <div class="about-content">
+            <h3>We Build With Passion, Precision & Integrity</h3>
+            <p>BuildRight Construction has been a trusted name in the industry for over 18 years. We specialize in residential, commercial, and industrial projects, delivering excellence at every stage — from foundation to finishing.</p>
+            <p>Our experienced team of engineers, architects, and skilled workers ensures every project meets the highest standards of quality, safety, and sustainability.</p>
+            <ul class="about-features">
+              <li><i class="bi bi-check-circle-fill"></i> Licensed & Insured Contractors</li>
+              <li><i class="bi bi-check-circle-fill"></i> Transparent Pricing & Timelines</li>
+              <li><i class="bi bi-check-circle-fill"></i> Quality Materials & Workmanship</li>
+              <li><i class="bi bi-check-circle-fill"></i> 24/7 Project Support</li>
+            </ul>
+            <a href="#contact" class="btn-primary-custom mt-2">Work With Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects" id="projects">
+    <div class="container">
+      <div class="section-title fade-up">
+        <h2>Featured <span>Projects</span></h2>
+        <p>A glimpse of the quality work we have delivered for our valued clients.</p>
+        <div class="line"></div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4 fade-up">
+          <div class="project-card">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Modern Villa">
+            <span class="project-tag">Residential</span>
+            <div class="project-overlay"><h5>Luxury Villa – Green Heights</h5><p>4 BHK modern villa with smart home features</p></div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 fade-up">
+          <div class="project-card">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80" alt="Office Building">
+            <span class="project-tag">Commercial</span>
+            <div class="project-overlay"><h5>Tech Park Tower</h5><p>12-floor commercial office complex</p></div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 fade-up">
+          <div class="project-card">
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80" alt="Apartment">
+            <span class="project-tag">Residential</span>
+            <div class="project-overlay"><h5>Sunrise Apartments</h5><p>60-unit premium residential complex</p></div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 fade-up">
+          <div class="project-card">
+            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80" alt="Warehouse">
+            <span class="project-tag">Industrial</span>
+            <div class="project-overlay"><h5>LogiHub Warehouse</h5><p>50,000 sq.ft industrial warehouse facility</p></div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 fade-up">
+          <div class="project-card">
+            <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=80" alt="Interior">
+            <span class="project-tag">Renovation</span>
+            <div class="project-overlay"><h5>Heritage Home Makeover</h5><p>Complete interior & exterior renovation</p></div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 fade-up">
+          <div class="project-card">
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80" alt="Retail Space">
+            <span class="project-tag">Commercial</span>
+            <div class="project-overlay"><h5>City Mall Extension</h5><p>Retail expansion with modern interiors</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="why-us" id="why-us">
+    <div class="container">
+      <div class="section-title fade-up">
+        <h2>Why Choose <span>BuildRight</span></h2>
+        <p>We stand out with our commitment to quality, transparency, and customer satisfaction.</p>
+        <div class="line"></div>
+      </div>
+      <div class="row g-4">
+        <div class="col-6 col-md-3 fade-up">
+          <div class="why-card">
+            <div class="why-icon"><i class="bi bi-award"></i></div>
+            <h5>Quality Assured</h5>
+            <p>Premium materials & skilled craftsmanship on every project.</p>
+          </div>
+        </div>
+        <div class="col-6 col-md-3 fade-up">
+          <div class="why-card">
+            <div class="why-icon"><i class="bi bi-clock-history"></i></div>
+            <h5>On-Time Delivery</h5>
+            <p>Strict project timelines with zero compromise on quality.</p>
+          </div>
+        </div>
+        <div class="col-6 col-md-3 fade-up">
+          <div class="why-card">
+            <div class="why-icon"><i class="bi bi-cash-coin"></i></div>
+            <h5>Best Pricing</h5>
+            <p>Competitive rates with complete cost transparency.</p>
+          </div>
+        </div>
+        <div class="col-6 col-md-3 fade-up">
+          <div class="why-card">
+            <div class="why-icon"><i class="bi bi-headset"></i></div>
+            <h5>Dedicated Support</h5>
+            <p>Dedicated project manager from start to finish.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="section-title fade-up">
+        <h2>Client <span>Reviews</span></h2>
+        <p>What our clients say about working with BuildRight Construction.</p>
+        <div class="line"></div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4 fade-up">
+          <div class="testimonial-card">
+            <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+            <p>"BuildRight delivered our dream home exactly as promised. The quality of work and attention to detail was outstanding. Highly recommended!"</p>
+            <div class="testimonial-author">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client">
+              <div><h6>Rajesh Mehta</h6><small>Homeowner, Pune</small></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 fade-up">
+          <div class="testimonial-card">
+            <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+            <p>"Professional team, transparent communication, and completed our office building 2 weeks ahead of schedule. Excellent experience overall."</p>
+            <div class="testimonial-author">
+              <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client">
+              <div><h6>Priya Sharma</h6><small>Business Owner</small></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 fade-up">
+          <div class="testimonial-card">
+            <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i></div>
+            <p>"From planning to final handover, everything was smooth. Their project manager kept us updated at every stage. Will hire them again."</p>
+            <div class="testimonial-author">
+              <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Client">
+              <div><h6>Amit Patel</h6><small>Property Developer</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-title fade-up">
+        <h2>Get In <span>Touch</span></h2>
+        <p>Ready to start your project? Contact us for a free consultation and quote.</p>
+        <div class="line"></div>
+      </div>
+      <div class="row g-5">
+        <div class="col-lg-5 fade-up">
+          <div class="contact-info-item">
+            <div class="icon"><i class="bi bi-geo-alt-fill"></i></div>
+            <div><h6>Our Office</h6><p>123 Construction Avenue,<br>Baner, Pune – 411045<br>Maharashtra, India</p></div>
+          </div>
+          <div class="contact-info-item">
+            <div class="icon"><i class="bi bi-telephone-fill"></i></div>
+            <div><h6>Phone</h6><p>+91 98765 43210<br>+91 98765 43211</p></div>
+          </div>
+          <div class="contact-info-item">
+            <div class="icon"><i class="bi bi-envelope-fill"></i></div>
+            <div><h6>Email</h6><p>info@buildright.com<br>projects@buildright.com</p></div>
+          </div>
+          <div class="contact-info-item">
+            <div class="icon"><i class="bi bi-clock-fill"></i></div>
+            <div><h6>Working Hours</h6><p>Mon – Sat: 9:00 AM – 6:00 PM<br>Sunday: Closed</p></div>
+          </div>
+        </div>
+        <div class="col-lg-7 fade-up">
+          <div class="contact-form">
+            <form id="contactForm">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label>Full Name *</label>
+                  <input type="text" class="form-control" id="name" placeholder="Your name" required>
+                </div>
+                <div class="col-md-6">
+                  <label>Phone *</label>
+                  <input type="tel" class="form-control" id="phone" placeholder="Your phone number" required>
+                </div>
+                <div class="col-md-6">
+                  <label>Email</label>
+                  <input type="email" class="form-control" id="email" placeholder="Your email">
+                </div>
+                <div class="col-md-6">
+                  <label>Service Needed</label>
+                  <select class="form-select" id="service">
+                    <option value="">Select a service</option>
+                    <option>Residential Construction</option>
+                    <option>Commercial Buildings</option>
+                    <option>Renovation & Remodeling</option>
+                    <option>Site Planning & Design</option>
+                    <option>Material Supply</option>
+                    <option>Project Management</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="col-12">
+                  <label>Message *</label>
+                  <textarea class="form-control" id="message" rows="4" placeholder="Tell us about your project..." required></textarea>
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn-primary-custom w-100"><i class="bi bi-send me-2"></i> Send Message</button>
+                </div>
+              </div>
+            </form>
+            <div id="formSuccess" class="alert alert-success mt-3 d-none" role="alert">
+              <i class="bi bi-check-circle me-2"></i> Thank you! Your message has been sent. We'll contact you soon.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <h5><i class="bi bi-building me-2" style="color:var(--primary)"></i>BuildRight</h5>
+          <p>Your trusted partner for quality construction services. Building excellence since 2006 with integrity, innovation, and craftsmanship.</p>
+          <div class="social-links mt-3">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+            <a href="#"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h5>Quick Links</h5>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-3">
+          <h5>Services</h5>
+          <ul>
+            <li><a href="#services">Residential</a></li>
+            <li><a href="#services">Commercial</a></li>
+            <li><a href="#services">Renovation</a></li>
+            <li><a href="#services">Site Planning</a></li>
+            <li><a href="#services">Project Management</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3">
+          <h5>Contact Info</h5>
+          <ul>
+            <li><i class="bi bi-geo-alt me-2"></i> Baner, Pune – 411045</li>
+            <li><i class="bi bi-telephone me-2"></i> +91 98765 43210</li>
+            <li><i class="bi bi-envelope me-2"></i> info@buildright.com</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="mb-0">&copy; 2026 BuildRight Construction. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTop" title="Back to top"><i class="bi bi-arrow-up"></i></button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const navbar = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) navbar.classList.add('scrolled');
+      else navbar.classList.remove('scrolled');
+    });
+
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 100;
+        if (scrollY >= sectionTop) current = section.getAttribute('id');
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+      });
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          const top = target.getBoundingClientRect().top + window.pageYOffset - 70;
+          window.scrollTo({ top, behavior: 'smooth' });
+          const navCollapse = document.querySelector('.navbar-collapse');
+          if (navCollapse.classList.contains('show')) new bootstrap.Collapse(navCollapse).hide();
+        }
+      });
+    });
+
+    const fadeElements = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.15 });
+    fadeElements.forEach(el => observer.observe(el));
+
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      backToTop.style.display = window.scrollY > 400 ? 'flex' : 'none';
+    });
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const message = document.getElementById('message').value.trim();
+      if (!name || !phone || !message) { alert('Please fill in all required fields.'); return; }
+      document.getElementById('formSuccess').classList.remove('d-none');
+      this.reset();
+      setTimeout(() => document.getElementById('formSuccess').classList.add('d-none'), 5000);
+    });
+  </script>
+</body>
+</html>
